@@ -17,7 +17,7 @@ export const resolvers = {
             return tasks;
         },
 
-        async users() { // Asegúrate de que coincida con el tipo definido
+        async User() { // Asegúrate de que coincida con el tipo definido
             return await User.find();
         }
     },
@@ -33,6 +33,12 @@ export const resolvers = {
             const newUser = new User(input);
             await newUser.save();
             return newUser;
+        },
+        async deleteUser(_, { _id }){
+            return await User.findByIdAndDelete( _id)
+        },
+        async updateUser(_, {_id, input}){
+            return await User.findByIdAndUpdate(_id,input, {new:true})
         }
     }
 };
